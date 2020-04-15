@@ -33,7 +33,6 @@ ChatBot::ChatBot(std::string filename)
 ChatBot::~ChatBot()
 {
     std::cout << "ChatBot Destructor" << std::endl;
-
     // deallocate heap memory
     if(_image != NULL) // Attention: wxWidgets used NULL and not nullptr
     {
@@ -55,6 +54,7 @@ ChatBot::ChatBot(ChatBot &source){
 }
 
 ChatBot& ChatBot::operator=(ChatBot &source){
+    std::cout << "Assigning content of instance " << &source << " to instance " << this << std::endl;
     if (this == &source){
         return *this;
     }
@@ -63,7 +63,6 @@ ChatBot& ChatBot::operator=(ChatBot &source){
     _rootNode = source._rootNode;
     _chatLogic = source._chatLogic;
     return *this;
-    std::cout << "Assigning content of instance " << &source << " to instance " << this << std::endl;
 }
 
 ChatBot::ChatBot(ChatBot &&source){
@@ -72,6 +71,8 @@ ChatBot::ChatBot(ChatBot &&source){
     _currentNode = source._currentNode;
     _rootNode = source._rootNode;
     _chatLogic = source._chatLogic;
+
+    _chatLogic->SetChatbotHandle(this);
 
     source._image = nullptr;
     source._currentNode = nullptr;
@@ -89,6 +90,8 @@ ChatBot& ChatBot::operator=(ChatBot &&source){
     _currentNode = source._currentNode;
     _rootNode = source._rootNode;
     _chatLogic = source._chatLogic;
+
+    _chatLogic->SetChatbotHandle(this);
 
     source._image = nullptr;
     source._currentNode = nullptr;
