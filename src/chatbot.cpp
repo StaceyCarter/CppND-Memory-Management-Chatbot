@@ -45,6 +45,59 @@ ChatBot::~ChatBot()
 //// STUDENT CODE
 ////
 
+ChatBot::ChatBot(ChatBot &source){
+    _image = source._image;
+    _currentNode = source._currentNode;
+    _rootNode = source._rootNode;
+    _chatLogic = source._chatLogic;
+
+    std::cout << "Copying content of instance " << &source << " to instance " << this << std::endl;
+}
+
+ChatBot& ChatBot::operator=(ChatBot &source){
+    if (this == &source){
+        return *this;
+    }
+    _image = source._image;
+    _currentNode = source._currentNode;
+    _rootNode = source._rootNode;
+    _chatLogic = source._chatLogic;
+    return *this;
+    std::cout << "Assigning content of instance " << &source << " to instance " << this << std::endl;
+}
+
+ChatBot::ChatBot(ChatBot &&source){
+    std::cout << "Moving instance " << &source << " to instance " << this << std::endl;
+    _image = source._image;
+    _currentNode = source._currentNode;
+    _rootNode = source._rootNode;
+    _chatLogic = source._chatLogic;
+
+    source._image = nullptr;
+    source._currentNode = nullptr;
+    source._rootNode = nullptr;
+    source._chatLogic = nullptr;
+    
+}
+
+ChatBot& ChatBot::operator=(ChatBot &&source){
+    std::cout << "Moving (assigning) instance " << &source << " to instance " << this << std::endl; 
+    if (this == &source){
+        return *this;
+    }
+    _image = source._image;
+    _currentNode = source._currentNode;
+    _rootNode = source._rootNode;
+    _chatLogic = source._chatLogic;
+
+    source._image = nullptr;
+    source._currentNode = nullptr;
+    source._rootNode = nullptr;
+    source._chatLogic = nullptr;
+
+    return *this;
+}
+
 ////
 //// EOF STUDENT CODE
 
